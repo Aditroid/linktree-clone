@@ -18,14 +18,17 @@ export default function Home() {
           <p className="text-8xl mt-22 font-extrabold mb-5">Everything you are. In one, simple link in bio.</p>
           <p className="mb-11 text-xl font-semibold">Join 50M+ people using Linktree for their link in bio. One link to help you share everything you create, curate and sell from your Instagram, TikTok, Twitter, YouTube and other social media profiles.</p>
           <div className="flex flex-row items-center">
-            <input
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              type="text"
-              placeholder="linktr.ee/"
-              className="text-[#676b5f] h-[6vh] w-[12vw] bg-white rounded-xl font-semibold py-[19px] px-[16px] me-2"
-            />
-            <button onClick={()=>create()} className="bg-[#e9c0e9] shadow-2xl text-black font-semibold rounded-full w-[11.2vw] h-[6vh] ps-[18px] pe-[20px]">
+            <div className="flex items-center">
+              <span className="bg-white h-[6vh] flex items-center px-4 rounded-l-xl border-r border-gray-200 text-gray-600 font-semibold">linktr.ee/</span>
+              <input
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                type="text"
+                placeholder="your handle"
+                className="text-[#676b5f] h-[6vh] w-[12vw] bg-white rounded-r-xl font-semibold py-[19px] px-[16px]"
+              />
+            </div>
+            <button onClick={()=>create()} className="bg-[#e9c0e9] shadow-2xl text-black font-semibold rounded-full w-auto min-w-[13vw] h-[6vh] px-6 ml-4 hover:cursor-pointer flex items-center justify-center whitespace-nowrap">
               Claim Your LinkTree
             </button>
           </div>

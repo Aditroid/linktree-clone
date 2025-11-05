@@ -69,7 +69,20 @@ const Generate = () => {
                 <p className='text-6xl font-bold mt-50'>Create your LinkTree</p>
                 <div className='flex flex-col mt-10' >
                     <p className='font-semibold mb-2 text-2xl'>Step 1 : Claim Your Handle</p>
-                    <input value={handle || ""} onChange={e => { sethandle(e.target.value) }} type="text" placeholder='Choose a Handle' className='mb-4 bg-white px-5  h-10 rounded-3xl focus:outline-[#512174] focus:outline-2 w-75' />
+                    <div className="flex items-center mb-4 w-75">
+                        <span className="bg-white h-10 flex items-center px-4 rounded-l-3xl border-r border-gray-200 text-gray-600">linktr.ee/</span>
+                        <input 
+                            value={handle || ""} 
+                            onChange={e => { 
+                                // Remove any instances of 'linktr.ee/' that might be pasted in
+                                const value = e.target.value.replace(/^linktr\.ee\//, '');
+                                sethandle(value);
+                            }} 
+                            type="text" 
+                            placeholder='yourhandle' 
+                            className='bg-white h-10 px-4 rounded-r-3xl focus:outline-[#512174] focus:outline-2 w-full' 
+                        />
+                    </div>
                     <p className='font-semibold mb-2 text-2xl'>Step 2 : Add Links</p>
                     {links && links.map((item, index) => {
                         return <div key={index} className='flex flex-row'>
@@ -83,11 +96,48 @@ const Generate = () => {
                 </button>
                 <div>
                     <p className='font-semibold mb-2 text-2xl mt-4'>Step 3 : Add Your Profile Picture</p>
-                    <input value={pic || ""} onChange={e => { setpic(e.target.value) }} type="text" placeholder='Enter Link to your Picture' className='bg-white px-5 h-10 focus:outline-[#512174] focus:outline-2 rounded-3xl mb-3 me-2 w-full' />
-                    <input value={desc || ""} onChange={e=>{setdesc(e.target.value)}} className='bg-white px-5 h-10 focus:outline-[#512174] focus:outline-2 rounded-3xl mb-3 me-2 w-full' type="text" placeholder='Enter description' />
+                    <div className='flex items-center gap-2 mb-3'>
+                        <input 
+                            value={pic || ""} 
+                            onChange={e => setpic(e.target.value)} 
+                            type="text" 
+                            placeholder='Paste image URL' 
+                            className='bg-white px-5 h-10 focus:outline-[#512174] focus:outline-2 rounded-3xl flex-1' 
+                        />
+                        <span className='text-gray-500'>OR</span>
+                        <label className='bg-[#512174] px-5 h-10 rounded-3xl text-white font-medium flex items-center cursor-pointer hover:bg-[#3d1957] transition-colors'>
+                            Upload Image
+                            <input 
+                                type='file' 
+                                className='hidden' 
+                                accept='image/*' 
+                                onChange={(e) => {
+                                    const file = e.target.files[0];
+                                    if (file) {
+                                        const reader = new FileReader();
+                                        reader.onloadend = () => {
+                                            setpic(reader.result);
+                                        };
+                                        reader.readAsDataURL(file);
+                                    }
+                                }}
+                            />
+                        </label>
+                    </div>
+                    <input 
+                        value={desc || ""} 
+                        onChange={e => setdesc(e.target.value)} 
+                        className='bg-white px-5 h-10 focus:outline-[#512174] focus:outline-2 rounded-3xl w-full' 
+                        type="text" 
+                        placeholder='Enter description' 
+                    />
                 </div>
-                <button disabled={pic == "" || handle=="" || links[0].linktext == "" || links[0].link == ""} onClick={()=>{submitLinks()}} className='bg-[#512174] text-xl rounded-full text-white py-4 w-35 mt-7 font-semibold'>
-                    Create
+                <button 
+                    disabled={pic == "" || handle=="" || links[0].linktext == "" || links[0].link == ""} 
+                    onClick={()=>{submitLinks()}} 
+                    className='bg-[#512174] text-lg rounded-full text-white py-3 px-8 mt-7 font-semibold hover:bg-[#3d1957] transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#512174] shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer'
+                >
+                    Create Your LinkTree
                 </button>
             </div>
             <div className='col2 relative ms-70'>
