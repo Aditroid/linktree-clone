@@ -95,7 +95,7 @@ export default async function Page({ params }) {
             <div className="min-h-screen flex items-center justify-center">
                 <div className="text-center">
                     <h1 className="text-2xl font-bold text-red-600 mb-4">Something went wrong</h1>
-                    <p className="text-gray-600">We're having trouble loading this profile. Please try again later.</p>
+                    <p className="text-gray-600">We&apos;re having trouble loading this profile. Please try again later.</p>
                     <Link href="/" className="mt-4 inline-block text-purple-600 hover:underline">
                         ← Back to Home
                     </Link>
